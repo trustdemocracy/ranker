@@ -1,6 +1,6 @@
 FROM vertx/vertx3
 
-ENV VERTICLE_NAME eu.trustdemocracy.ranker.App
+ENV VERTICLE_NAME eu.trustdemocracy.ranker.endpoints.App
 ENV VERTICLE_FILE target/ranker-1.0-SNAPSHOT.jar
 
 

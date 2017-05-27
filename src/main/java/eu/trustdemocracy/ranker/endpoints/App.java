@@ -1,4 +1,4 @@
-package eu.trustdemocracy.ranker;
+package eu.trustdemocracy.ranker.endpoints;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
