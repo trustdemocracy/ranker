@@ -1,10 +1,17 @@
 package eu.trustdemocracy.ranker.gateways;
 
 import eu.trustdemocracy.ranker.core.entities.User;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class FakeUserRepository implements UserRepository {
 
-  public Set<User> users = new HashSet<>();
+  public Map<UUID, User> users = new HashMap<>();
+
+  @Override
+  public void create(User user) {
+    user.setRank(0.0);
+    users.put(user.getId(), user);
+  }
 }
