@@ -105,4 +105,17 @@ public class MongoRankRepositoryTest {
     val doc = collection.find(eq("id", user.getId().toString())).first();
     assertNotNull(doc);
   }
+
+  @Test
+  public void removeUser() {
+    val collection = db.getCollection("users");
+    val user = new User()
+        .setId(UUID.randomUUID());
+
+    assertEquals(0L, collection.count());
+    rankRepository.createUser(user);
+    assertEquals(1L, collection.count());
+    rankRepository.removeUser(user);
+    assertEquals(0L, collection.count());
+  }
 }
