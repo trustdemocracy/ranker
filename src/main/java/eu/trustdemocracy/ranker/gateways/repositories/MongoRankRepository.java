@@ -55,7 +55,14 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void removeRelationship(Relationship relationship) {
+    val originId = relationship.getOriginId().toString();
+    val targetId = relationship.getTargetId().toString();
 
+    val condition = and(
+        eq("originId", originId),
+        eq("targetId", targetId)
+    );
+    getRelationshipsCollection().deleteOne(condition);
   }
 
   @Override
