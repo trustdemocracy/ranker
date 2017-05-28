@@ -1,5 +1,6 @@
 package eu.trustdemocracy.ranker.gateways.repositories.mongo;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -7,8 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.github.fakemongo.Fongo;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.gateways.repositories.MongoRankRepository;
 import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
+import java.util.UUID;
 import lombok.val;
 import org.bson.Document;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,4 +61,22 @@ public class MongoRankRepositoryTest {
     assertEquals(timestamp, doc.getLong("timestamp"), 0.1);
   }
 
+  @Test
+  public void g() {
+    val relationship = new Relationship()
+        .setOriginId(UUID.randomUUID())
+        .setTargetId(UUID.randomUUID());
+
+    assertEquals(0L, collection.count());
+    rankRepository.createRelationship(relationship);
+    assertEquals(1L, collection.count());
+
+
+    val condition = and(
+        eq("originId", relationship.getOriginId().toString()),
+        eq("targetId", relationship.getTargetId().toString())
+    );
+    val doc = collection.find(condition).first();
+    assertNotNull(doc);
+  }
 }
