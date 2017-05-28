@@ -118,4 +118,31 @@ public class MongoRankRepositoryTest {
     rankRepository.removeUser(user);
     assertEquals(0L, collection.count());
   }
+
+  @Test
+  public void removeUserAndRelationships() {
+    val usersCollection = db.getCollection("users");
+    val relationshipsCollection = db.getCollection("relationships");
+    val user = new User()
+        .setId(UUID.randomUUID());
+    val outRelationship = new Relationship()
+        .setOriginId(user.getId())
+        .setTargetId(UUID.randomUUID());
+    val inRelationship = new Relationship()
+        .setOriginId(UUID.randomUUID())
+        .setTargetId(user.getId());
+
+    assertEquals(0L, usersCollection.count());
+    assertEquals(0L, relationshipsCollection.count());
+    rankRepository.createUser(user);
+    rankRepository.createRelationship(outRelationship);
+    rankRepository.createRelationship(inRelationship);
+
+    assertEquals(1L, usersCollection.count());
+    assertEquals(2L, relationshipsCollection.count());
+
+    rankRepository.removeUser(user);
+    assertEquals(0L, usersCollection.count());
+    assertEquals(0L, relationshipsCollection.count());
+  }
 }
