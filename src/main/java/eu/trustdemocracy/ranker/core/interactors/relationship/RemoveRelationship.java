@@ -3,21 +3,21 @@ package eu.trustdemocracy.ranker.core.interactors.relationship;
 import eu.trustdemocracy.ranker.core.entities.utils.RelationshipMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RelationshipRepository;
+import eu.trustdemocracy.ranker.gateways.RankRepository;
 import lombok.val;
 
 public class RemoveRelationship implements Interactor<RelationshipRequestDTO, Boolean> {
 
-  private RelationshipRepository relationshipRepository;
+  private RankRepository rankRepository;
 
-  public RemoveRelationship(RelationshipRepository relationshipRepository) {
-    this.relationshipRepository = relationshipRepository;
+  public RemoveRelationship(RankRepository rankRepository) {
+    this.rankRepository = rankRepository;
   }
 
   @Override
   public Boolean execute(RelationshipRequestDTO relationshipRequestDTO) {
     val relationship = RelationshipMapper.createEntity(relationshipRequestDTO);
-    relationshipRepository.remove(relationship);
+    rankRepository.removeRelationship(relationship);
     return true;
   }
 }

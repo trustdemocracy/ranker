@@ -4,20 +4,20 @@ import eu.trustdemocracy.ranker.core.entities.User;
 import eu.trustdemocracy.ranker.core.entities.utils.UserMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.UserRequestDTO;
-import eu.trustdemocracy.ranker.gateways.UserRepository;
+import eu.trustdemocracy.ranker.gateways.RankRepository;
 
 public class AddUser implements Interactor<UserRequestDTO, Boolean> {
 
-  private UserRepository userRepository;
+  private RankRepository rankRepository;
 
-  public AddUser(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public AddUser(RankRepository rankRepository) {
+    this.rankRepository = rankRepository;
   }
 
   @Override
   public Boolean execute(UserRequestDTO userRequestDTO) {
     User user = UserMapper.createEntity(userRequestDTO);
-    userRepository.create(user);
+    rankRepository.createUser(user);
     return true;
   }
 }

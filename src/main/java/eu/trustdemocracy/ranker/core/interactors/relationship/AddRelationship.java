@@ -4,20 +4,20 @@ import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.utils.RelationshipMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RelationshipRepository;
+import eu.trustdemocracy.ranker.gateways.RankRepository;
 
 public class AddRelationship implements Interactor<RelationshipRequestDTO, Boolean> {
 
-  private RelationshipRepository relationshipRepository;
+  private RankRepository rankRepository;
 
-  public AddRelationship(RelationshipRepository relationshipRepository) {
-    this.relationshipRepository = relationshipRepository;
+  public AddRelationship(RankRepository rankRepository) {
+    this.rankRepository = rankRepository;
   }
 
   @Override
   public Boolean execute(RelationshipRequestDTO relationshipRequestDTO) {
     Relationship relationship = RelationshipMapper.createEntity(relationshipRequestDTO);
-    relationshipRepository.create(relationship);
+    rankRepository.createRelationship(relationship);
     return true;
   }
 }

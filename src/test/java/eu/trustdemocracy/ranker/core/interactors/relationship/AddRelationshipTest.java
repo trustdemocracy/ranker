@@ -3,9 +3,8 @@ package eu.trustdemocracy.ranker.core.interactors.relationship;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
-import eu.trustdemocracy.ranker.gateways.FakeRelationshipRepository;
+import eu.trustdemocracy.ranker.gateways.FakeRankRepository;
 import java.util.UUID;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 public class AddRelationshipTest {
 
-  private FakeRelationshipRepository relationshipRepository;
+  private FakeRankRepository rankRepository;
 
   @BeforeEach
   public void init() {
-    relationshipRepository = new FakeRelationshipRepository();
+    rankRepository = new FakeRankRepository();
   }
 
 
@@ -30,9 +29,9 @@ public class AddRelationshipTest {
         .setOriginId(originId)
         .setTargetId(targetId);
 
-    Boolean response = new AddRelationship(relationshipRepository).execute(requestDTO);
+    Boolean response = new AddRelationship(rankRepository).execute(requestDTO);
 
     assertTrue(response);
-    assertEquals(1, relationshipRepository.relationships.size());
+    assertEquals(1, rankRepository.relationships.size());
   }
 }
