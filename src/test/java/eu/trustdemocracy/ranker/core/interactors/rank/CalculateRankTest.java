@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import lombok.val;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CalculateRankTest {
 
@@ -67,12 +67,12 @@ public class CalculateRankTest {
     val user1 = users.get("user1");
     val user2 = users.get("user2");
     val user3 = users.get("user3");
-    assertEquals(0.257, usersGateway.users.get(user1.getId()), 0.0001);
-    assertEquals(0.486, usersGateway.users.get(user2.getId()), 0.0001);
-    assertEquals(0.257, usersGateway.users.get(user3.getId()), 0.0001);
-    assertEquals(0.257, votesGateway.users.get(user1.getId()), 0.0001);
-    assertEquals(0.486, votesGateway.users.get(user2.getId()), 0.0001);
-    assertEquals(0.257, votesGateway.users.get(user3.getId()), 0.0001);
+    assertEquals(0.257, usersGateway.users.get(user1.getId()), 0.001);
+    assertEquals(0.486, usersGateway.users.get(user2.getId()), 0.001);
+    assertEquals(0.257, usersGateway.users.get(user3.getId()), 0.001);
+    assertEquals(0.257, votesGateway.users.get(user1.getId()), 0.001);
+    assertEquals(0.486, votesGateway.users.get(user2.getId()), 0.001);
+    assertEquals(0.257, votesGateway.users.get(user3.getId()), 0.001);
   }
 
 }
