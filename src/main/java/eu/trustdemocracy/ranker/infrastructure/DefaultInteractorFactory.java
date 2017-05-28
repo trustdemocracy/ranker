@@ -47,6 +47,6 @@ public class DefaultInteractorFactory implements InteractorFactory {
   }
 
   private RankRepository getRankRepository() {
-    return null;
+    return RepositoryFactory.getRankRepository();
   }
 }
