@@ -90,23 +90,8 @@ public class App extends AbstractVerticle {
 
 
   private void launchScheduler() {
-    vertx.executeBlocking(future -> {
-      LOG.info("Scheduler started");
-
-      while (true) {
-        if (stopScheduler) {
-          break;
-        }
-
-        LOG.info("Running calculation...");
-        try {
-          Thread.sleep(10000);
-        } catch (InterruptedException ignored) {
-        }
-      }
-
-      future.complete();
-    }, result -> LOG.info("Scheduler stopped"));
+    val scheduler = new RankScheduler(this);
+    scheduler.start();
   }
 
 }
