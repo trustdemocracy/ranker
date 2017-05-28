@@ -34,8 +34,8 @@ public class RemoveRelationshipTest {
     assertEquals(1, relationshipRepository.relationships.size());
 
     val deleteRequestDTO = new RelationshipRequestDTO()
-        .setOriginId(targetId)
-        .setTargetId(originId);
+        .setOriginId(originId)
+        .setTargetId(targetId);
 
     Boolean response = new RemoveRelationship(relationshipRepository).execute(deleteRequestDTO);
 

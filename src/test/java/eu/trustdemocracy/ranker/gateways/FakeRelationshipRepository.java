@@ -12,4 +12,9 @@ public class FakeRelationshipRepository implements RelationshipRepository {
   public void create(Relationship relationship) {
     relationships.add(relationship);
   }
+
+  @Override
+  public void remove(Relationship relationship) {
+    relationships.remove(relationship);
+  }
 }
