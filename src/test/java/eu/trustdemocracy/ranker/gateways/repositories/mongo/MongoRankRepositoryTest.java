@@ -46,13 +46,13 @@ public class MongoRankRepositoryTest {
   }
 
   @Test
-  public void addExecutionRequest() {
+  public void enqueueRequest() {
     val collection = db.getCollection("requests");
 
     val timestamp = System.currentTimeMillis();
 
     assertEquals(0L, collection.count());
-    rankRepository.addExecutionRequest(timestamp);
+    rankRepository.enqueueRequest(timestamp);
     assertEquals(1L, collection.count());
 
     val doc = collection.find(eq("timestamp", timestamp)).first();

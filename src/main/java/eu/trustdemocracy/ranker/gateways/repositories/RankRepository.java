@@ -9,7 +9,9 @@ public interface RankRepository {
 
   void addLock(long timestamp);
 
-  void addExecutionRequest(long timestamp);
+  void enqueueRequest(long timestamp);
+
+  Long dequeueRequest();
 
   void createRelationship(Relationship relationship);
 

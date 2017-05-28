@@ -18,7 +18,7 @@ public class AddUser implements Interactor<UserRequestDTO, Boolean> {
   public Boolean execute(UserRequestDTO userRequestDTO) {
     User user = UserMapper.createEntity(userRequestDTO);
     rankRepository.createUser(user);
-    rankRepository.addExecutionRequest(System.currentTimeMillis());
+    rankRepository.enqueueRequest(System.currentTimeMillis());
     return true;
   }
 }

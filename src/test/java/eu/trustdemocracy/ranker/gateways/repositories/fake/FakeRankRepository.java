@@ -8,13 +8,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class FakeRankRepository implements RankRepository {
 
-  public Set<Long> locks = new HashSet<>();
-  public Set<Long> executionRequests = new HashSet<>();
+  public TreeSet<Long> locks = new TreeSet<>();
+  public TreeSet<Long> executionRequests = new TreeSet<>();
 
   public Map<UUID, User> users = new HashMap<>();
   public Set<Relationship> relationships = new HashSet<>();
@@ -25,8 +26,20 @@ public class FakeRankRepository implements RankRepository {
   }
 
   @Override
-  public void addExecutionRequest(long timestamp) {
+  public void enqueueRequest(long timestamp) {
     executionRequests.add(timestamp);
+  }
+
+  @Override
+  public Long dequeueRequest() {
+    if (executionRequests.isEmpty()) {
+      return null;
+    }
+    Long timestamp = executionRequests.pollFirst();
+    while (timestamp >= locks.first()) {
+      locks.pollFirst();
+    }
+    return timestamp;
   }
 
   @Override

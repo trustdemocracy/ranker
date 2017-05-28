@@ -2,10 +2,12 @@ package eu.trustdemocracy.ranker.gateways.repositories;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.lte;
 import static com.mongodb.client.model.Filters.or;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.UpdateOptions;
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;
@@ -32,11 +34,27 @@ public class MongoRankRepository implements RankRepository {
   }
 
   @Override
-  public void addExecutionRequest(long timestamp) {
+  public void enqueueRequest(long timestamp) {
     val document = new Document("timestamp", timestamp);
     val condition = eq("timestamp", timestamp);
     val options = new UpdateOptions().upsert(true);
     getRequestsCollection().replaceOne(condition, document, options);
+  }
+
+  @Override
+  public Long dequeueRequest() {
+    val doc = getRelationshipsCollection()
+        .find()
+        .sort(Sorts.ascending("timestamp"))
+        .first();
+    if (doc == null) {
+      return null;
+    }
+    long timestamp = doc.getLong("timestamp");
+    val condition = lte("timestamp", timestamp);
+    getLocksCollection().deleteMany(condition);
+
+    return timestamp;
   }
 
   @Override
