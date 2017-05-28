@@ -1,5 +1,6 @@
 package eu.trustdemocracy.ranker.gateways.repositories;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.client.MongoCollection;
@@ -38,7 +39,18 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void createRelationship(Relationship relationship) {
+    val originId = relationship.getOriginId().toString();
+    val targetId = relationship.getTargetId().toString();
 
+    val document = new Document("originId", originId)
+        .append("targetId", targetId);
+
+    val condition = and(
+        eq("originId", originId),
+        eq("targetId", targetId)
+    );
+    val options = new UpdateOptions().upsert(true);
+    getRelationshipsCollection().replaceOne(condition, document, options);
   }
 
   @Override
@@ -67,5 +79,9 @@ public class MongoRankRepository implements RankRepository {
 
   private MongoCollection<Document> getRequestsCollection() {
     return this.db.getCollection("requests");
+  }
+
+  private MongoCollection<Document> getRelationshipsCollection() {
+    return this.db.getCollection("relationships");
   }
 }

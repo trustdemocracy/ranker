@@ -6,20 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.github.fakemongo.Fongo;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.gateways.repositories.MongoRankRepository;
 import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import java.util.UUID;
 import lombok.val;
-import org.bson.Document;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MongoRankRepositoryTest {
 
-  private MongoCollection<Document> collection;
   private RankRepository rankRepository;
   private MongoDatabase db;
 
@@ -62,7 +59,8 @@ public class MongoRankRepositoryTest {
   }
 
   @Test
-  public void g() {
+  public void createRelationship() {
+    val collection = db.getCollection("relationships");
     val relationship = new Relationship()
         .setOriginId(UUID.randomUUID())
         .setTargetId(UUID.randomUUID());
@@ -70,7 +68,6 @@ public class MongoRankRepositoryTest {
     assertEquals(0L, collection.count());
     rankRepository.createRelationship(relationship);
     assertEquals(1L, collection.count());
-
 
     val condition = and(
         eq("originId", relationship.getOriginId().toString()),
