@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.github.fakemongo.Fongo;
 import com.mongodb.client.MongoDatabase;
 import eu.trustdemocracy.ranker.core.entities.Relationship;
+import eu.trustdemocracy.ranker.core.entities.User;
 import eu.trustdemocracy.ranker.gateways.repositories.MongoRankRepository;
 import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import java.util.UUID;
@@ -89,5 +90,19 @@ public class MongoRankRepositoryTest {
     assertEquals(1L, collection.count());
     rankRepository.removeRelationship(relationship);
     assertEquals(0L, collection.count());
+  }
+
+  @Test
+  public void createUser() {
+    val collection = db.getCollection("users");
+    val user = new User()
+        .setId(UUID.randomUUID());
+
+    assertEquals(0L, collection.count());
+    rankRepository.createUser(user);
+    assertEquals(1L, collection.count());
+
+    val doc = collection.find(eq("id", user.getId().toString())).first();
+    assertNotNull(doc);
   }
 }
