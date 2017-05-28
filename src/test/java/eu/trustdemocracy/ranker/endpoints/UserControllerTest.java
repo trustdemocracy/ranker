@@ -24,4 +24,22 @@ public class UserControllerTest extends ControllerTest {
     assert200(context, async, single);
   }
 
+
+  @Test
+  public void removeUser(TestContext context) {
+    val async = context.async();
+
+    val user = new UserRequestDTO()
+        .setId(UUID.randomUUID());
+
+    client.post(port, HOST, "/users/")
+        .rxSendJson(user)
+        .subscribe(response -> {
+          val single = client.delete(port, HOST, "/users/" + user.getId())
+              .rxSend();
+          assert200(context, async, single);
+        });
+
+  }
+
 }
