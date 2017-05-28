@@ -10,39 +10,26 @@ public class RankScheduler {
 
   private App app;
   private Integer interval;
-  private boolean shouldStop;
 
   public RankScheduler(App app) {
     this.app = app;
   }
 
   public void start() {
-    app.getVertx().executeBlocking(future -> {
-      LOG.info("RankScheduler started");
+    LOG.info("RankScheduler started");
+    app.getVertx().setPeriodic(getRankInterval(), id -> {
 
-      while (true) {
-        if (shouldStop) {
-          break;
-        }
-
-        if (app.getInteractorFactory().getNeedRecalculate().execute(null)) {
-          LOG.info("Running graph calculation...");
-          app.getInteractorFactory().getCalculateRank().execute(null);
-        }
-
-        try {
-          Thread.sleep(getRankInterval());
-        } catch (InterruptedException ignored) {
-        }
+      if (app.getInteractorFactory().getNeedRecalculate().execute(null)) {
+        LOG.info("Graph has changed. Running graph calculation...");
+        app.getInteractorFactory().getCalculateRank().execute(null);
+        LOG.info("Graph has been updated...");
+      } else {
+        LOG.info("No changes in the graph. Nothing to compute...");
       }
 
-      future.complete();
-    }, result -> LOG.info("RankScheduler stopped"));
+    });
   }
 
-  public void stop() {
-    this.shouldStop = true;
-  }
 
   private int getRankInterval() {
     if (interval == null) {
