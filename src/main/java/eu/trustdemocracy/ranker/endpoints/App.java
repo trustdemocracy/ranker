@@ -15,6 +15,8 @@ public class App extends AbstractVerticle {
 
   private Router router;
 
+  private boolean stopScheduler;
+
   public static void main(String... args) {
     Runner.runVerticle(App.class.getName());
   }
@@ -35,11 +37,30 @@ public class App extends AbstractVerticle {
     }, result -> {
       if (result.succeeded()) {
         LOG.info("App listening on port: " + port);
-
+        launchScheduler();
       } else {
         LOG.error("Failed to start verticle", result.cause());
       }
     });
+  }
+
+  private void launchScheduler() {
+    vertx.executeBlocking(future -> {
+      LOG.info("Scheduler started");
+
+      while (true) {
+        if (stopScheduler) {
+          break;
+        }
+
+        LOG.info("Running calculation...");
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException ignored) {}
+      }
+
+      future.complete();
+    }, result -> LOG.info("Scheduler stopped"));
   }
 
 }
