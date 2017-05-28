@@ -67,7 +67,11 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void createUser(User user) {
-
+    val id = user.getId().toString();
+    val document = new Document("id", id);
+    val condition = eq("id", id);
+    val options = new UpdateOptions().upsert(true);
+    getUsersCollection().replaceOne(condition, document, options);
   }
 
   @Override
@@ -90,5 +94,9 @@ public class MongoRankRepository implements RankRepository {
 
   private MongoCollection<Document> getRelationshipsCollection() {
     return this.db.getCollection("relationships");
+  }
+
+  private MongoCollection<Document> getUsersCollection() {
+    return this.db.getCollection("users");
   }
 }
