@@ -14,4 +14,9 @@ public class FakeUserRepository implements UserRepository {
     user.setRank(0.0);
     users.put(user.getId(), user);
   }
+
+  @Override
+  public void remove(User user) {
+    users.remove(user.getId());
+  }
 }

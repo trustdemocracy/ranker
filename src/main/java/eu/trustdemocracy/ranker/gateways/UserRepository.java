@@ -5,4 +5,6 @@ import eu.trustdemocracy.ranker.core.entities.User;
 public interface UserRepository {
 
   void create(User user);
+
+  void remove(User user);
 }
