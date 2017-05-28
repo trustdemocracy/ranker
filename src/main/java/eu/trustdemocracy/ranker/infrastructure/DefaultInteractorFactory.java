@@ -1,10 +1,15 @@
 package eu.trustdemocracy.ranker.infrastructure;
 
 import eu.trustdemocracy.ranker.core.interactors.rank.AddLockDate;
+import eu.trustdemocracy.ranker.core.interactors.rank.CalculateRank;
 import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.interactors.relationship.RemoveRelationship;
 import eu.trustdemocracy.ranker.core.interactors.user.AddUser;
 import eu.trustdemocracy.ranker.core.interactors.user.RemoveUser;
+import eu.trustdemocracy.ranker.gateways.out.UsersGateway;
+import eu.trustdemocracy.ranker.gateways.out.UsersGatewayImpl;
+import eu.trustdemocracy.ranker.gateways.out.VotesGateway;
+import eu.trustdemocracy.ranker.gateways.out.VotesGatewayImpl;
 import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 
 public class DefaultInteractorFactory implements InteractorFactory {
@@ -46,7 +51,20 @@ public class DefaultInteractorFactory implements InteractorFactory {
     return new AddLockDate(getRankRepository());
   }
 
+  @Override
+  public CalculateRank getCalculateRank() {
+    return new CalculateRank(getRankRepository(), getUsersGateway(), getVotesGateway());
+  }
+
   private RankRepository getRankRepository() {
     return RepositoryFactory.getRankRepository();
+  }
+
+  public VotesGateway getVotesGateway() {
+    return new VotesGatewayImpl();
+  }
+
+  public UsersGateway getUsersGateway() {
+    return new UsersGatewayImpl();
   }
 }
