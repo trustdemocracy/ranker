@@ -9,6 +9,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import lombok.val;
@@ -90,7 +91,24 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public Map<UUID, User> getGraph() {
-    return null;
+    Map<UUID, User> graph = new HashMap<>();
+
+    for (val doc : getUsersCollection().find()) {
+      val id = UUID.fromString(doc.getString("id"));
+      graph.put(id, new User().setId(id));
+    }
+
+    for (val doc : getRelationshipsCollection().find()) {
+      val originId = UUID.fromString(doc.getString("originId"));
+      val targetId = UUID.fromString(doc.getString("targetId"));
+
+      val count = graph.get(originId).getOutRelationshipsCount();
+      graph.get(originId).setOutRelationshipsCount(count + 1);
+
+      graph.get(targetId).getInRelationships().add(originId);
+    }
+
+    return graph;
   }
 
   private MongoCollection<Document> getLocksCollection() {

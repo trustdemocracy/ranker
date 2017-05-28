@@ -1,5 +1,6 @@
 package eu.trustdemocracy.ranker.core.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import lombok.Data;
@@ -13,5 +14,5 @@ public class User {
   private Double rank;
 
   private int outRelationshipsCount;
-  private Set<UUID> inRelationships;
+  private Set<UUID> inRelationships = new HashSet<>();
 }
