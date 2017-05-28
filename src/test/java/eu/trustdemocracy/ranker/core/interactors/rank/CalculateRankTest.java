@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;
-import eu.trustdemocracy.ranker.gateways.FakeRankRepository;
-import eu.trustdemocracy.ranker.gateways.FakeUsersGateway;
-import eu.trustdemocracy.ranker.gateways.FakeVotesGateway;
+import eu.trustdemocracy.ranker.gateways.repositories.fake.FakeRankRepository;
+import eu.trustdemocracy.ranker.gateways.out.FakeUsersGateway;
+import eu.trustdemocracy.ranker.gateways.out.FakeVotesGateway;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

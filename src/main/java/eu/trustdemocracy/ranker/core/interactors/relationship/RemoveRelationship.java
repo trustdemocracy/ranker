@@ -3,7 +3,7 @@ package eu.trustdemocracy.ranker.core.interactors.relationship;
 import eu.trustdemocracy.ranker.core.entities.utils.RelationshipMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import lombok.val;
 
 public class RemoveRelationship implements Interactor<RelationshipRequestDTO, Boolean> {

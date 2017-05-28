@@ -3,7 +3,7 @@ package eu.trustdemocracy.ranker.core.interactors.user;
 import eu.trustdemocracy.ranker.core.entities.utils.UserMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.UserRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import lombok.val;
 
 public class RemoveUser implements Interactor<UserRequestDTO, Boolean> {

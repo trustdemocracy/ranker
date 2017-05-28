@@ -1,7 +1,8 @@
-package eu.trustdemocracy.ranker.gateways;
+package eu.trustdemocracy.ranker.gateways.repositories.fake;
 
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;
+import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -48,6 +49,10 @@ public class FakeRankRepository implements RankRepository {
   @Override
   public void removeUser(User user) {
     users.remove(user.getId());
+
+    relationships.removeIf(relationship ->
+        relationship.getOriginId().equals(user.getId())
+            || relationship.getTargetId().equals(user.getId()));
   }
 
   @Override

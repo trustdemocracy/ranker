@@ -4,7 +4,7 @@ import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.utils.RelationshipMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 
 public class AddRelationship implements Interactor<RelationshipRequestDTO, Boolean> {
 

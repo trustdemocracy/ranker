@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.trustdemocracy.ranker.core.models.request.UserRequestDTO;
-import eu.trustdemocracy.ranker.gateways.FakeRankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.fake.FakeRankRepository;
 import java.util.UUID;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;

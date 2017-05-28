@@ -4,7 +4,7 @@ import eu.trustdemocracy.ranker.core.entities.User;
 import eu.trustdemocracy.ranker.core.entities.utils.UserMapper;
 import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.UserRequestDTO;
-import eu.trustdemocracy.ranker.gateways.RankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 
 public class AddUser implements Interactor<UserRequestDTO, Boolean> {
 

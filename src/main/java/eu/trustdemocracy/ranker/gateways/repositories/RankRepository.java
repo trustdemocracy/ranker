@@ -1,4 +1,4 @@
-package eu.trustdemocracy.ranker.gateways;
+package eu.trustdemocracy.ranker.gateways.repositories;
 
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;

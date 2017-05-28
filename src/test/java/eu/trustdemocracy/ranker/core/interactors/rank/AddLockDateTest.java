@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.trustdemocracy.ranker.core.models.request.LockRequestDTO;
-import eu.trustdemocracy.ranker.gateways.FakeRankRepository;
+import eu.trustdemocracy.ranker.gateways.repositories.fake.FakeRankRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
