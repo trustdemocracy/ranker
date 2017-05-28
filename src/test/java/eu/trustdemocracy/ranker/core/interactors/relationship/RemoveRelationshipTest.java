@@ -21,7 +21,7 @@ public class RemoveRelationshipTest {
 
 
   @Test
-  public void removeRelationship() {
+  public void removeRelationship() throws InterruptedException {
     val originId = UUID.randomUUID();
     val targetId = UUID.randomUUID();
 
@@ -37,6 +37,7 @@ public class RemoveRelationshipTest {
         .setOriginId(originId)
         .setTargetId(targetId);
 
+    Thread.sleep(200);
     Boolean response = new RemoveRelationship(rankRepository).execute(deleteRequestDTO);
 
     assertTrue(response);
