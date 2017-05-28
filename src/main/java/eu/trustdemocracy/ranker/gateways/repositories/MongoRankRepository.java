@@ -76,7 +76,9 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void removeUser(User user) {
-
+    val id = user.getId().toString();
+    val condition = eq("id", id);
+    getUsersCollection().deleteOne(condition);
   }
 
   @Override
