@@ -43,4 +43,19 @@ public class MongoRankRepositoryTest {
     assertEquals(timestamp, doc.getLong("timestamp"), 0.1);
   }
 
+  @Test
+  public void addExecutionRequest() {
+    val collection = db.getCollection("requests");
+
+    val timestamp = System.currentTimeMillis();
+
+    assertEquals(0L, collection.count());
+    rankRepository.addExecutionRequest(timestamp);
+    assertEquals(1L, collection.count());
+
+    val doc = collection.find(eq("timestamp", timestamp)).first();
+    assertNotNull(doc);
+    assertEquals(timestamp, doc.getLong("timestamp"), 0.1);
+  }
+
 }

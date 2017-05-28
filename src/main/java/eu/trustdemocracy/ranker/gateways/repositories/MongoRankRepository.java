@@ -30,7 +30,10 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void addExecutionRequest(long timestamp) {
-
+    val document = new Document("timestamp", timestamp);
+    val condition = eq("timestamp", timestamp);
+    val options = new UpdateOptions().upsert(true);
+    getRequestsCollection().replaceOne(condition, document, options);
   }
 
   @Override
@@ -60,5 +63,9 @@ public class MongoRankRepository implements RankRepository {
 
   private MongoCollection<Document> getLocksCollection() {
     return this.db.getCollection("locks");
+  }
+
+  private MongoCollection<Document> getRequestsCollection() {
+    return this.db.getCollection("requests");
   }
 }
