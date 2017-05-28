@@ -43,7 +43,7 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public Long dequeueRequest() {
-    val doc = getRelationshipsCollection()
+    val doc = getRequestsCollection()
         .find()
         .sort(Sorts.ascending("timestamp"))
         .first();
@@ -53,6 +53,8 @@ public class MongoRankRepository implements RankRepository {
     long timestamp = doc.getLong("timestamp");
     val condition = lte("timestamp", timestamp);
     getLocksCollection().deleteMany(condition);
+
+    getRequestsCollection().deleteOne(eq("_id", doc.getObjectId("_id")));
 
     return timestamp;
   }
