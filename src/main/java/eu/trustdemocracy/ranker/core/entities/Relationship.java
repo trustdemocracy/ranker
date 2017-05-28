@@ -1,5 +1,6 @@
 package eu.trustdemocracy.ranker.core.entities;
 
+import java.util.UUID;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -7,6 +8,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class Relationship {
 
-  private String originId;
-  private String targetId;
+  private UUID originId;
+  private UUID targetId;
 }

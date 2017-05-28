@@ -7,4 +7,9 @@ import java.util.Set;
 public class FakeRelationshipRepository implements RelationshipRepository {
 
   public Set<Relationship> relationships = new HashSet<>();
+
+  @Override
+  public void create(Relationship relationship) {
+    relationships.add(relationship);
+  }
 }
