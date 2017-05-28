@@ -76,4 +76,18 @@ public class MongoRankRepositoryTest {
     val doc = collection.find(condition).first();
     assertNotNull(doc);
   }
+
+  @Test
+  public void removeRelationship() {
+    val collection = db.getCollection("relationships");
+    val relationship = new Relationship()
+        .setOriginId(UUID.randomUUID())
+        .setTargetId(UUID.randomUUID());
+
+    assertEquals(0L, collection.count());
+    rankRepository.createRelationship(relationship);
+    assertEquals(1L, collection.count());
+    rankRepository.removeRelationship(relationship);
+    assertEquals(0L, collection.count());
+  }
 }
