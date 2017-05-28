@@ -24,7 +24,7 @@ public class RankScheduler {
         if (shouldStop) {
           break;
         }
-        
+
         LOG.info("Running graph calculation...");
         try {
           Thread.sleep(getRankInterval());

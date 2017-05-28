@@ -26,8 +26,6 @@ public class App extends AbstractVerticle {
 
   private Router router;
 
-  private boolean stopScheduler;
-
   public static void main(String... args) {
     Runner.runVerticle(App.class.getName());
   }
@@ -36,24 +34,17 @@ public class App extends AbstractVerticle {
   public void start() throws Exception {
     val port = config().getInteger("http.port", DEFAULT_PORT);
 
-    vertx.executeBlocking(future -> {
-      router = Router.router(vertx);
-      router.route().handler(BodyHandler.create());
-      registerControllers();
+    router = Router.router(vertx);
+    router.route().handler(BodyHandler.create());
+    registerControllers();
 
-      vertx.createHttpServer()
-          .requestHandler(router::accept)
-          .listen(port);
+    vertx.createHttpServer()
+        .requestHandler(router::accept)
+        .listen(port);
 
-      future.complete();
-    }, result -> {
-      if (result.succeeded()) {
-        LOG.info("App listening on port: " + port);
-        launchScheduler();
-      } else {
-        LOG.error("Failed to start verticle", result.cause());
-      }
-    });
+    LOG.info("App listening on port: " + port);
+
+    launchScheduler();
   }
 
   private void registerControllers() {
