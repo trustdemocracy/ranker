@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.trustdemocracy.ranker.core.models.request.LockRequestDTO;
 import eu.trustdemocracy.ranker.gateways.FakeRankRepository;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AddLockDateTest {
 

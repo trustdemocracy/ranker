@@ -6,11 +6,15 @@ import eu.trustdemocracy.ranker.gateways.RankRepository;
 
 public class AddLockDate implements Interactor<LockRequestDTO, Boolean> {
 
+  private RankRepository rankRepository;
+
   public AddLockDate(RankRepository rankRepository) {
+    this.rankRepository = rankRepository;
   }
 
   @Override
   public Boolean execute(LockRequestDTO lockRequestDTO) {
-    return null;
+    rankRepository.addLock(lockRequestDTO.getTimestamp());
+    return true;
   }
 }
