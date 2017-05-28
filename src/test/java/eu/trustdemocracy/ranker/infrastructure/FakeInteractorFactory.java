@@ -4,6 +4,7 @@ import com.github.fakemongo.Fongo;
 import com.mongodb.client.MongoDatabase;
 import eu.trustdemocracy.ranker.core.interactors.rank.AddLockDate;
 import eu.trustdemocracy.ranker.core.interactors.rank.CalculateRank;
+import eu.trustdemocracy.ranker.core.interactors.rank.NeedRecalculate;
 import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.interactors.relationship.RemoveRelationship;
 import eu.trustdemocracy.ranker.core.interactors.user.AddUser;
@@ -48,6 +49,11 @@ public class FakeInteractorFactory implements InteractorFactory {
   @Override
   public CalculateRank getCalculateRank() {
     return new CalculateRank(getRankRepository(), getUsersGateway(), getVotesGateway());
+  }
+
+  @Override
+  public NeedRecalculate getNeedRecalculate() {
+    return new NeedRecalculate(getRankRepository());
   }
 
   private RankRepository getRankRepository() {

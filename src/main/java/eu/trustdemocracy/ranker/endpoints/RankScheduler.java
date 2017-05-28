@@ -6,7 +6,7 @@ import io.vertx.core.logging.LoggerFactory;
 public class RankScheduler {
 
   private static final Logger LOG = LoggerFactory.getLogger(RankScheduler.class);
-  private static final int DEFAULT_INTERVAL = 60;
+  private static final int DEFAULT_INTERVAL = 60 * 60;
 
   private App app;
   private Integer interval;
@@ -25,7 +25,11 @@ public class RankScheduler {
           break;
         }
 
-        LOG.info("Running graph calculation...");
+        if (app.getInteractorFactory().getNeedRecalculate().execute(null)) {
+          LOG.info("Running graph calculation...");
+          app.getInteractorFactory().getCalculateRank().execute(null);
+        }
+
         try {
           Thread.sleep(getRankInterval());
         } catch (InterruptedException ignored) {
@@ -46,7 +50,7 @@ public class RankScheduler {
       if (customInterval != null) {
         interval = Integer.valueOf(customInterval) * 1000;
       } else {
-        interval = 60 * 1000;
+        interval = DEFAULT_INTERVAL * 1000;
       }
     }
     return interval;
