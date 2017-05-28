@@ -2,6 +2,7 @@ package eu.trustdemocracy.ranker.infrastructure;
 
 import com.github.fakemongo.Fongo;
 import com.mongodb.client.MongoDatabase;
+import eu.trustdemocracy.ranker.core.interactors.rank.AddLockDate;
 import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.interactors.relationship.RemoveRelationship;
 import eu.trustdemocracy.ranker.core.interactors.user.AddUser;
@@ -32,6 +33,11 @@ public class FakeInteractorFactory implements InteractorFactory {
   @Override
   public RemoveRelationship getRemoveRelationship() {
     return new RemoveRelationship(getRankRepository());
+  }
+
+  @Override
+  public AddLockDate getAddLockDate() {
+    return new AddLockDate(getRankRepository());
   }
 
   private RankRepository getRankRepository() {

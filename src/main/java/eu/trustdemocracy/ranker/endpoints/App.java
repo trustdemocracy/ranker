@@ -1,6 +1,7 @@
 package eu.trustdemocracy.ranker.endpoints;
 
 import eu.trustdemocracy.ranker.endpoints.controllers.Controller;
+import eu.trustdemocracy.ranker.endpoints.controllers.RankController;
 import eu.trustdemocracy.ranker.endpoints.controllers.RelationshipController;
 import eu.trustdemocracy.ranker.endpoints.controllers.UserController;
 import eu.trustdemocracy.ranker.endpoints.util.Runner;
@@ -58,7 +59,8 @@ public class App extends AbstractVerticle {
   private void registerControllers() {
     val controllers = Stream.of(
         UserController.class,
-        RelationshipController.class
+        RelationshipController.class,
+        RankController.class
     ).collect(Collectors.toCollection(HashSet<Class<? extends Controller>>::new));
 
     for (val controller : controllers) {

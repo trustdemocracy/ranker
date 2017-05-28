@@ -1,5 +1,6 @@
 package eu.trustdemocracy.ranker.infrastructure;
 
+import eu.trustdemocracy.ranker.core.interactors.rank.AddLockDate;
 import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.interactors.relationship.RemoveRelationship;
 import eu.trustdemocracy.ranker.core.interactors.user.AddUser;
@@ -38,6 +39,11 @@ public class DefaultInteractorFactory implements InteractorFactory {
   @Override
   public RemoveRelationship getRemoveRelationship() {
     return new RemoveRelationship(getRankRepository());
+  }
+
+  @Override
+  public AddLockDate getAddLockDate() {
+    return new AddLockDate(getRankRepository());
   }
 
   private RankRepository getRankRepository() {
