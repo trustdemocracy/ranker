@@ -40,7 +40,7 @@ public class MongoRankRepositoryTest {
 
     val doc = collection.find(eq("timestamp", timestamp)).first();
     assertNotNull(doc);
-    assertEquals(timestamp, doc.getLong("timestamp"), 0);
+    assertEquals(timestamp, doc.getLong("timestamp"), 0.1);
   }
 
 }

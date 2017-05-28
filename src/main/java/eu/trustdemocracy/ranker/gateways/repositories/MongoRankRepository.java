@@ -1,10 +1,16 @@
 package eu.trustdemocracy.ranker.gateways.repositories;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.UpdateOptions;
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.User;
 import java.util.Map;
 import java.util.UUID;
+import lombok.val;
+import org.bson.Document;
 
 public class MongoRankRepository implements RankRepository {
 
@@ -16,7 +22,10 @@ public class MongoRankRepository implements RankRepository {
 
   @Override
   public void addLock(long timestamp) {
-
+    val document = new Document("timestamp", timestamp);
+    val condition = eq("timestamp", timestamp);
+    val options = new UpdateOptions().upsert(true);
+    getLocksCollection().replaceOne(condition, document, options);
   }
 
   @Override
@@ -47,5 +56,9 @@ public class MongoRankRepository implements RankRepository {
   @Override
   public Map<UUID, User> getGraph() {
     return null;
+  }
+
+  private MongoCollection<Document> getLocksCollection() {
+    return this.db.getCollection("locks");
   }
 }
