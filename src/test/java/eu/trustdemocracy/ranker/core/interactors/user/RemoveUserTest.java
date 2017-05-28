@@ -1,4 +1,4 @@
-package eu.trustdemocracy.ranker.core.interactors;
+package eu.trustdemocracy.ranker.core.interactors.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,7 +10,7 @@ import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AddUserTest {
+public class RemoveUserTest {
 
   private FakeUserRepository userRepository;
 
@@ -21,16 +21,19 @@ public class AddUserTest {
 
 
   @Test
-  public void addUser() {
+  public void removeUser() {
     val userId = UUID.randomUUID();
 
     UserRequestDTO requestDTO = new UserRequestDTO()
         .setId(userId);
 
-    Boolean response = new AddUser(userRepository).execute(requestDTO);
+    new AddUser(userRepository).execute(requestDTO);
 
-    assertTrue(response);
     assertEquals(1, userRepository.users.size());
+
+    Boolean response = new RemoveUser(userRepository).execute(requestDTO);
+    assertTrue(response);
+    assertEquals(0, userRepository.users.size());
   }
 
 }

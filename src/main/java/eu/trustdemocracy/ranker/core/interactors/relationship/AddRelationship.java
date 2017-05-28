@@ -1,7 +1,8 @@
-package eu.trustdemocracy.ranker.core.interactors;
+package eu.trustdemocracy.ranker.core.interactors.relationship;
 
 import eu.trustdemocracy.ranker.core.entities.Relationship;
 import eu.trustdemocracy.ranker.core.entities.utils.RelationshipMapper;
+import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
 import eu.trustdemocracy.ranker.gateways.RelationshipRepository;
 

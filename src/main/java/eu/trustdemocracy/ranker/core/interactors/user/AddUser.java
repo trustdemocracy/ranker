@@ -1,7 +1,8 @@
-package eu.trustdemocracy.ranker.core.interactors;
+package eu.trustdemocracy.ranker.core.interactors.user;
 
 import eu.trustdemocracy.ranker.core.entities.User;
 import eu.trustdemocracy.ranker.core.entities.utils.UserMapper;
+import eu.trustdemocracy.ranker.core.interactors.Interactor;
 import eu.trustdemocracy.ranker.core.models.request.UserRequestDTO;
 import eu.trustdemocracy.ranker.gateways.UserRepository;
 

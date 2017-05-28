@@ -1,8 +1,9 @@
-package eu.trustdemocracy.ranker.core.interactors;
+package eu.trustdemocracy.ranker.core.interactors.relationship;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
 import eu.trustdemocracy.ranker.core.models.request.RelationshipRequestDTO;
 import eu.trustdemocracy.ranker.gateways.FakeRelationshipRepository;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RemoveRelationshipTest {
+public class AddRelationshipTest {
 
   private FakeRelationshipRepository relationshipRepository;
 
@@ -21,25 +22,17 @@ public class RemoveRelationshipTest {
 
 
   @Test
-  public void removeRelationship() {
+  public void addRelationship() {
     val originId = UUID.randomUUID();
     val targetId = UUID.randomUUID();
 
-    val requestDTO = new RelationshipRequestDTO()
+    RelationshipRequestDTO requestDTO = new RelationshipRequestDTO()
         .setOriginId(originId)
         .setTargetId(targetId);
 
-    new AddRelationship(relationshipRepository).execute(requestDTO);
-
-    assertEquals(1, relationshipRepository.relationships.size());
-
-    val deleteRequestDTO = new RelationshipRequestDTO()
-        .setOriginId(originId)
-        .setTargetId(targetId);
-
-    Boolean response = new RemoveRelationship(relationshipRepository).execute(deleteRequestDTO);
+    Boolean response = new AddRelationship(relationshipRepository).execute(requestDTO);
 
     assertTrue(response);
-    assertEquals(0, relationshipRepository.relationships.size());
+    assertEquals(1, relationshipRepository.relationships.size());
   }
 }
