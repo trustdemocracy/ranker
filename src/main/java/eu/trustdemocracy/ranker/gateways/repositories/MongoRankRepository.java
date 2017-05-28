@@ -2,6 +2,7 @@ package eu.trustdemocracy.ranker.gateways.repositories;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.or;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -79,6 +80,12 @@ public class MongoRankRepository implements RankRepository {
     val id = user.getId().toString();
     val condition = eq("id", id);
     getUsersCollection().deleteOne(condition);
+
+    val relationshipCondition = or(
+        eq("originId", id),
+        eq("targetId", id)
+    );
+    getRelationshipsCollection().deleteMany(relationshipCondition);
   }
 
   @Override
