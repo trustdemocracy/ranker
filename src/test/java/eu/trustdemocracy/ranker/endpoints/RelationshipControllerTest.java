@@ -36,7 +36,7 @@ public class RelationshipControllerTest extends ControllerTest {
     client.post(port, HOST, "/relationships/")
         .rxSendJson(relationship)
         .subscribe(response -> {
-          val single = client.delete(port, HOST, "/relationships/remove")
+          val single = client.post(port, HOST, "/relationships/remove")
               .rxSendJson(relationship);
           assert200(context, async, single);
         });

@@ -36,7 +36,7 @@ public class UserController extends Controller {
     try {
       val request = new UserRequestDTO()
           .setId(UUID.fromString(context.pathParam("userId")));
-      val interactor = getInteractorFactory().getAddUser();
+      val interactor = getInteractorFactory().getRemoveUser();
 
       val responseDTO = interactor.execute(request);
 

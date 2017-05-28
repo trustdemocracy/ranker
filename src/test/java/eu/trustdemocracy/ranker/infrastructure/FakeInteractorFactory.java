@@ -2,7 +2,10 @@ package eu.trustdemocracy.ranker.infrastructure;
 
 import com.github.fakemongo.Fongo;
 import com.mongodb.client.MongoDatabase;
+import eu.trustdemocracy.ranker.core.interactors.relationship.AddRelationship;
+import eu.trustdemocracy.ranker.core.interactors.relationship.RemoveRelationship;
 import eu.trustdemocracy.ranker.core.interactors.user.AddUser;
+import eu.trustdemocracy.ranker.core.interactors.user.RemoveUser;
 import eu.trustdemocracy.ranker.gateways.repositories.MongoRankRepository;
 import eu.trustdemocracy.ranker.gateways.repositories.RankRepository;
 import lombok.val;
@@ -14,6 +17,21 @@ public class FakeInteractorFactory implements InteractorFactory {
   @Override
   public AddUser getAddUser() {
     return new AddUser(getRankRepository());
+  }
+
+  @Override
+  public RemoveUser getRemoveUser() {
+    return new RemoveUser(getRankRepository());
+  }
+
+  @Override
+  public AddRelationship getAddRelationship() {
+    return new AddRelationship(getRankRepository());
+  }
+
+  @Override
+  public RemoveRelationship getRemoveRelationship() {
+    return new RemoveRelationship(getRankRepository());
   }
 
   private RankRepository getRankRepository() {
