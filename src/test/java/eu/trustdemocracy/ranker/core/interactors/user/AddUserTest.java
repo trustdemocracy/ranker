@@ -31,6 +31,7 @@ public class AddUserTest {
 
     assertTrue(response);
     assertEquals(1, rankRepository.users.size());
+    assertEquals(1, rankRepository.executionRequests.size());
   }
 
 }

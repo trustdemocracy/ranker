@@ -7,6 +7,8 @@ public interface RankRepository {
 
   void addLock(long timestamp);
 
+  void addExecutionRequest(long timestamp);
+
   void createRelationship(Relationship relationship);
 
   void removeRelationship(Relationship relationship);

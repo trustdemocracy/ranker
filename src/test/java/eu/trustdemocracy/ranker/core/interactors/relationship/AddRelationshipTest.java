@@ -33,5 +33,6 @@ public class AddRelationshipTest {
 
     assertTrue(response);
     assertEquals(1, rankRepository.relationships.size());
+    assertEquals(1, rankRepository.executionRequests.size());
   }
 }

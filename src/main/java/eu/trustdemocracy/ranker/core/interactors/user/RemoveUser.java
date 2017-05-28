@@ -18,6 +18,7 @@ public class RemoveUser implements Interactor<UserRequestDTO, Boolean> {
   public Boolean execute(UserRequestDTO userRequestDTO) {
     val user = UserMapper.createEntity(userRequestDTO);
     rankRepository.removeUser(user);
+    rankRepository.addExecutionRequest(System.currentTimeMillis());
     return true;
   }
 }

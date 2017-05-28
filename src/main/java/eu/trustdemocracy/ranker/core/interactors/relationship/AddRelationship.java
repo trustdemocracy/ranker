@@ -18,6 +18,7 @@ public class AddRelationship implements Interactor<RelationshipRequestDTO, Boole
   public Boolean execute(RelationshipRequestDTO relationshipRequestDTO) {
     Relationship relationship = RelationshipMapper.createEntity(relationshipRequestDTO);
     rankRepository.createRelationship(relationship);
+    rankRepository.addExecutionRequest(System.currentTimeMillis());
     return true;
   }
 }

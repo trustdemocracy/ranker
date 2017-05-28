@@ -18,6 +18,7 @@ public class RemoveRelationship implements Interactor<RelationshipRequestDTO, Bo
   public Boolean execute(RelationshipRequestDTO relationshipRequestDTO) {
     val relationship = RelationshipMapper.createEntity(relationshipRequestDTO);
     rankRepository.removeRelationship(relationship);
+    rankRepository.addExecutionRequest(System.currentTimeMillis());
     return true;
   }
 }

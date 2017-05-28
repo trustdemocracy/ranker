@@ -34,6 +34,7 @@ public class RemoveUserTest {
     Boolean response = new RemoveUser(rankRepository).execute(requestDTO);
     assertTrue(response);
     assertEquals(0, rankRepository.users.size());
+    assertEquals(2, rankRepository.executionRequests.size());
   }
 
 }

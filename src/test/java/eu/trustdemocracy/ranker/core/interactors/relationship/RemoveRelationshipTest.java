@@ -41,5 +41,6 @@ public class RemoveRelationshipTest {
 
     assertTrue(response);
     assertEquals(0, rankRepository.relationships.size());
+    assertEquals(2, rankRepository.executionRequests.size());
   }
 }

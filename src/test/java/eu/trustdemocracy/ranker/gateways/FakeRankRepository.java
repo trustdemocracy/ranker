@@ -11,12 +11,19 @@ import java.util.UUID;
 public class FakeRankRepository implements RankRepository {
 
   public Set<Long> locks = new HashSet<>();
+  public Set<Long> executionRequests = new HashSet<>();
+
   public Map<UUID, User> users = new HashMap<>();
   public Set<Relationship> relationships = new HashSet<>();
 
   @Override
   public void addLock(long timestamp) {
     locks.add(timestamp);
+  }
+
+  @Override
+  public void addExecutionRequest(long timestamp) {
+    executionRequests.add(timestamp);
   }
 
   @Override
