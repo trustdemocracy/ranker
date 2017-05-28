@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.val;
 
 public class PageRankStrategy implements RankingStrategy {
-  
+
   private Map<UUID, Double> currentRank = new HashMap<>();
   private Map<UUID, User> graph;
 
