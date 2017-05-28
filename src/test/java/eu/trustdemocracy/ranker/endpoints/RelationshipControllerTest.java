@@ -25,5 +25,23 @@ public class RelationshipControllerTest extends ControllerTest {
     assert200(context, async, single);
   }
 
+  @Test
+  public void removeRelationship(TestContext context) {
+    val async = context.async();
+
+    val relationship = new RelationshipRequestDTO()
+        .setOriginId(UUID.randomUUID())
+        .setTargetId(UUID.randomUUID());
+
+    client.post(port, HOST, "/relationships/")
+        .rxSendJson(relationship)
+        .subscribe(response -> {
+          val single = client.delete(port, HOST, "/relationships/remove")
+              .rxSendJson(relationship);
+          assert200(context, async, single);
+        });
+
+  }
+
 
 }
