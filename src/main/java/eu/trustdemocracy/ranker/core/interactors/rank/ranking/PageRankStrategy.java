@@ -7,12 +7,13 @@ import java.util.UUID;
 import lombok.val;
 
 public class PageRankStrategy implements RankingStrategy {
-
+  
   private Map<UUID, Double> currentRank = new HashMap<>();
   private Map<UUID, User> graph;
 
-  private static final float DELTA = 0.01f;
+  private static final float DELTA = 0.001f;
   private static final float FACTOR = 0.825f;
+  private static final int MAX_ITERATIONS = 300;
 
   private int graphSize;
 
@@ -23,7 +24,7 @@ public class PageRankStrategy implements RankingStrategy {
 
     initTempMap();
 
-    while (true) {
+    for (int i = 0; i < MAX_ITERATIONS; i++) {
       Map<UUID, Double> lastRank = new HashMap<>(currentRank);
 
       for (val user : graph.values()) {
@@ -38,7 +39,7 @@ public class PageRankStrategy implements RankingStrategy {
       val firstOldRank = lastRank.values().iterator().next();
       val firstNewRank = currentRank.values().iterator().next();
 
-      if (Math.abs(firstOldRank - firstNewRank) <= DELTA) {
+      if (Math.abs(firstOldRank / graphSize - firstNewRank / graphSize) <= DELTA) {
         break;
       }
     }

@@ -67,12 +67,20 @@ public class CalculateRankTest {
     val user1 = users.get("user1");
     val user2 = users.get("user2");
     val user3 = users.get("user3");
-    assertEquals(0.257, usersGateway.users.get(user1.getId()), 0.001);
-    assertEquals(0.486, usersGateway.users.get(user2.getId()), 0.001);
-    assertEquals(0.257, usersGateway.users.get(user3.getId()), 0.001);
-    assertEquals(0.257, votesGateway.users.get(user1.getId()), 0.001);
-    assertEquals(0.486, votesGateway.users.get(user2.getId()), 0.001);
-    assertEquals(0.257, votesGateway.users.get(user3.getId()), 0.001);
+
+    val rank1 = usersGateway.users.get(user1.getId());
+    val rank2 = usersGateway.users.get(user2.getId());
+    val rank3 = usersGateway.users.get(user3.getId());
+
+    assertEquals(1, rank1 + rank2 + rank3);
+
+    assertEquals(0.258, rank1, 0.001);
+    assertEquals(0.484, rank2, 0.001);
+    assertEquals(0.258, rank3, 0.001);
+
+    assertEquals(0.258, votesGateway.users.get(user1.getId()), 0.001);
+    assertEquals(0.484, votesGateway.users.get(user2.getId()), 0.001);
+    assertEquals(0.258, votesGateway.users.get(user3.getId()), 0.001);
   }
 
 }
