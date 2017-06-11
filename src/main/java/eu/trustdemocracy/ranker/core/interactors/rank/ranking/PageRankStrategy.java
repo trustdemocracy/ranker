@@ -11,7 +11,7 @@ public class PageRankStrategy implements RankingStrategy {
   private Map<UUID, Double> currentRank = new HashMap<>();
   private Map<UUID, User> graph;
 
-  private static final float DELTA = 0.001f;
+  private static final float DELTA = 0.0001f;
   private static final float FACTOR = 0.825f;
   private static final int MAX_ITERATIONS = 300;
 
@@ -50,8 +50,13 @@ public class PageRankStrategy implements RankingStrategy {
   }
 
   private void normalize() {
+    Double graphTotal = 0.0;
     for (val rank : currentRank.entrySet()) {
-      currentRank.put(rank.getKey(), rank.getValue() / graphSize);
+      graphTotal += rank.getValue();
+    }
+
+    for (val rank : currentRank.entrySet()) {
+      currentRank.put(rank.getKey(), rank.getValue() / graphTotal);
     }
   }
 
